@@ -1,10 +1,14 @@
 # Supplementary Material
-The supplementary material accompanying this paper is available in this repository and can be accessed directly here:
-https://anonymous.4open.science/r/IICNLUSIASC-72FE/ICSOC_2026_Supplementary_Material.pdf
+The supplementary material accompanying this paper is available at:
+https://doi.org/10.5281/zenodo.23004743
+
 This document contains additional implementation details, prompts, datasets, evaluation results, and supporting information that complement the paper.
 
 # Codebase
-This repository contains the code and outputs used in the paper.
+This repository contains the code and outputs used in the paper:
+
+**Inferring Implicit Constraints from Service Composition Requests: A Framework and Evaluation of LLM Prompting Strategies**
+Adarsh Kumar Panda and Ilche Georgievski, ICSOC 2026
 
 ## Main folders
 
@@ -28,10 +32,10 @@ This repository contains the code and outputs used in the paper.
 - [RQ2](RQ2)
   - [RQ2/data](RQ2/data): RQ2 evaluation gold and subset snapshots
   - [RQ2/zeroshot](RQ2/zeroshot), [RQ2/fewshot](RQ2/fewshot), [RQ2/cot](RQ2/cot), [RQ2/hybrid](RQ2/hybrid)
-    - each folder contains prompt file + `llm_outputs` + `llm_raw_failures`
+    - each folder contains prompt file + `llm_outputs`
   - [RQ2/generation](RQ2/generation)
     - [RQ2/generation/generate_llm_outputs.py](RQ2/generation/generate_llm_outputs.py)
-    - [RQ2/generation/reports](RQ2/generation/reports): generation summary snapshots
+    - [RQ2/generation/reports](RQ2/generation/reports): generation run summaries
   - [RQ2/eval](RQ2/eval)
     - [RQ2/eval/evaluate_rq2.py](RQ2/eval/evaluate_rq2.py)
     - [RQ2/eval/analyze_rq2_patterns.py](RQ2/eval/analyze_rq2_patterns.py)
@@ -68,8 +72,13 @@ pip install -r requirements.txt
 
 This also installs plotting dependencies used by [RQ2/eval/generate_figures.py](RQ2/eval/generate_figures.py).
 
-3. Set OpenAI API key (required only for generation):
+3. Set OpenAI API key (required only for LLM output regeneration; not needed for evaluation):
 
+```bash
+export OPENAI_API_KEY="YOUR_API_KEY_HERE"
+```
+
+On Windows PowerShell:
 ```powershell
 setx OPENAI_API_KEY "YOUR_API_KEY_HERE"
 ```
@@ -94,14 +103,14 @@ python RQ2/generation/generate_llm_outputs.py --dry-check --methods all --domain
 ### RQ2 evaluation
 
 ```bash
-python RQ2/eval/evaluate_rq2.py --domain all --method all --match-threshold 0.25 --category-bonus 0.05 --hybrid-source validator
-python RQ2/eval/analyze_rq2_patterns.py --match-threshold 0.25 --category-bonus 0.05 --hybrid-source validator
+python RQ2/eval/evaluate_rq2.py --domain all --method all --match-threshold 0.25 --category-bonus 0.05
+python RQ2/eval/analyze_rq2_patterns.py --match-threshold 0.25 --category-bonus 0.05
 python RQ2/eval/generate_figures.py
 ```
 
 ## Notes
 
-- Full output artifacts are included in this codebase.
+- Full output artifacts are included in this codebase. No API key is needed to reproduce evaluation results.
 - For detailed usage, see module READMEs:
   - [iaa/readme.md](iaa/readme.md)
   - [RQ2/generation/readme.md](RQ2/generation/readme.md)
